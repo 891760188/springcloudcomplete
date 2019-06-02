@@ -1,0 +1,50 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+server:
+  port: 14201
+
+spring:
+  application:
+    name: blog-app
+  cloud:
+    config:
+      label: master
+      profile: dev
+      uri: http://localhost:8888/
+    discovery:
+      enabled: true
+      serviceId: config-server
+    bus:
+      enabled: true
+      trace:
+        enabled: true
+  rabbitmq:
+    host: 192.168.20.128
+    port: 5672
+    username: guest
+    password: guest
+  zipkin:
+    base-url: http://localhost:9411/
+    sender:
+      type: web
+  sleuth:
+    sampler:
+      probability: 1.0
+
+feign:
+  hystrix:
+    enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: bus-refresh,info,health
+
+logging:
+  level:
+#    org.springframework.web: debug
+    org.springframework.cloud: debug
